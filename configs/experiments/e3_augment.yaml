@@ -3,9 +3,9 @@
 model:
   backbone: resnet18
 training:
-  epochs: 16
+  epochs: 12
   lr: 0.0003
-  early_stopping_patience: 6
+  early_stopping_patience: 5
 augment:
   randaugment: true
   cutmix_mixup: true

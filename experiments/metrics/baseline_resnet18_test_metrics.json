@@ -1,0 +1,357 @@
+{
+  "accuracy": 0.8933333333333333,
+  "precision": 0.9222222222222223,
+  "recall": 0.7980769230769231,
+  "f1": 0.8556701030927835,
+  "f1_macro": 0.8855389790388388,
+  "roc_auc": 0.9482983499150691,
+  "confusion_matrix": [
+    [
+      303,
+      14
+    ],
+    [
+      42,
+      166
+    ]
+  ],
+  "misclassified": [
+    {
+      "file": "mis_0_positive_as_negative.jpg",
+      "true": "positive",
+      "pred": "negative",
+      "conf": 0.757984071969986
+    },
+    {
+      "file": "mis_1_positive_as_negative.jpg",
+      "true": "positive",
+      "pred": "negative",
+      "conf": 0.5281647443771362
+    },
+    {
+      "file": "mis_2_positive_as_negative.jpg",
+      "true": "positive",
+      "pred": "negative",
+      "conf": 0.5484146475791931
+    },
+    {
+      "file": "mis_3_positive_as_negative.jpg",
+      "true": "positive",
+      "pred": "negative",
+      "conf": 0.7151475548744202
+    },
+    {
+      "file": "mis_4_positive_as_negative.jpg",
+      "true": "positive",
+      "pred": "negative",
+      "conf": 0.9999695510196034
+    },
+    {
+      "file": "mis_5_positive_as_negative.jpg",
+      "true": "positive",
+      "pred": "negative",
+      "conf": 0.9902216400951147
+    },
+    {
+      "file": "mis_6_positive_as_negative.jpg",
+      "true": "positive",
+      "pred": "negative",
+      "conf": 0.8871400654315948
+    },
+    {
+      "file": "mis_7_positive_as_negative.jpg",
+      "true": "positive",
+      "pred": "negative",
+      "conf": 0.9859999343752861
+    },
+    {
+      "file": "mis_8_positive_as_negative.jpg",
+      "true": "positive",
+      "pred": "negative",
+      "conf": 0.9989370824769139
+    },
+    {
+      "file": "mis_9_positive_as_negative.jpg",
+      "true": "positive",
+      "pred": "negative",
+      "conf": 0.942161537706852
+    },
+    {
+      "file": "mis_10_positive_as_negative.jpg",
+      "true": "positive",
+      "pred": "negative",
+      "conf": 0.8823318853974342
+    },
+    {
+      "file": "mis_11_positive_as_negative.jpg",
+      "true": "positive",
+      "pred": "negative",
+      "conf": 0.6544753313064575
+    },
+    {
+      "file": "mis_12_positive_as_negative.jpg",
+      "true": "positive",
+      "pred": "negative",
+      "conf": 0.9880962492898107
+    },
+    {
+      "file": "mis_13_positive_as_negative.jpg",
+      "true": "positive",
+      "pred": "negative",
+      "conf": 0.6087774038314819
+    },
+    {
+      "file": "mis_14_positive_as_negative.jpg",
+      "true": "positive",
+      "pred": "negative",
+      "conf": 0.741555392742157
+    },
+    {
+      "file": "mis_15_positive_as_negative.jpg",
+      "true": "positive",
+      "pred": "negative",
+      "conf": 0.6596928834915161
+    },
+    {
+      "file": "mis_16_positive_as_negative.jpg",
+      "true": "positive",
+      "pred": "negative",
+      "conf": 0.9819964226335287
+    },
+    {
+      "file": "mis_17_positive_as_negative.jpg",
+      "true": "positive",
+      "pred": "negative",
+      "conf": 0.9760348815470934
+    },
+    {
+      "file": "mis_18_positive_as_negative.jpg",
+      "true": "positive",
+      "pred": "negative",
+      "conf": 0.6834949851036072
+    },
+    {
+      "file": "mis_19_positive_as_negative.jpg",
+      "true": "positive",
+      "pred": "negative",
+      "conf": 0.5718492567539215
+    },
+    {
+      "file": "mis_20_positive_as_negative.jpg",
+      "true": "positive",
+      "pred": "negative",
+      "conf": 0.9947357145138085
+    },
+    {
+      "file": "mis_21_positive_as_negative.jpg",
+      "true": "positive",
+      "pred": "negative",
+      "conf": 0.9998824579597567
+    },
+    {
+      "file": "mis_22_positive_as_negative.jpg",
+      "true": "positive",
+      "pred": "negative",
+      "conf": 0.9988926254445687
+    },
+    {
+      "file": "mis_23_positive_as_negative.jpg",
+      "true": "positive",
+      "pred": "negative",
+      "conf": 0.9838928747922182
+    },
+    {
+      "file": "mis_24_positive_as_negative.jpg",
+      "true": "positive",
+      "pred": "negative",
+      "conf": 0.6734962463378906
+    },
+    {
+      "file": "mis_25_positive_as_negative.jpg",
+      "true": "positive",
+      "pred": "negative",
+      "conf": 0.9991771508939564
+    },
+    {
+      "file": "mis_26_positive_as_negative.jpg",
+      "true": "positive",
+      "pred": "negative",
+      "conf": 0.9964115947950631
+    },
+    {
+      "file": "mis_27_positive_as_negative.jpg",
+      "true": "positive",
+      "pred": "negative",
+      "conf": 0.9991361279971898
+    },
+    {
+      "file": "mis_28_positive_as_negative.jpg",
+      "true": "positive",
+      "pred": "negative",
+      "conf": 0.983873039484024
+    },
+    {
+      "file": "mis_29_positive_as_negative.jpg",
+      "true": "positive",
+      "pred": "negative",
+      "conf": 0.8086830675601959
+    },
+    {
+      "file": "mis_30_positive_as_negative.jpg",
+      "true": "positive",
+      "pred": "negative",
+      "conf": 0.950268916785717
+    },
+    {
+      "file": "mis_31_positive_as_negative.jpg",
+      "true": "positive",
+      "pred": "negative",
+      "conf": 0.6319406628608704
+    },
+    {
+      "file": "mis_32_positive_as_negative.jpg",
+      "true": "positive",
+      "pred": "negative",
+      "conf": 0.6097419559955597
+    },
+    {
+      "file": "mis_33_positive_as_negative.jpg",
+      "true": "positive",
+      "pred": "negative",
+      "conf": 0.7697891592979431
+    },
+    {
+      "file": "mis_34_positive_as_negative.jpg",
+      "true": "positive",
+      "pred": "negative",
+      "conf": 0.8185010403394699
+    },
+    {
+      "file": "mis_35_positive_as_negative.jpg",
+      "true": "positive",
+      "pred": "negative",
+      "conf": 0.6777175664901733
+    },
+    {
+      "file": "mis_36_positive_as_negative.jpg",
+      "true": "positive",
+      "pred": "negative",
+      "conf": 0.5735613405704498
+    },
+    {
+      "file": "mis_37_positive_as_negative.jpg",
+      "true": "positive",
+      "pred": "negative",
+      "conf": 0.9995297572168056
+    },
+    {
+      "file": "mis_38_positive_as_negative.jpg",
+      "true": "positive",
+      "pred": "negative",
+      "conf": 0.995540224481374
+    },
+    {
+      "file": "mis_39_positive_as_negative.jpg",
+      "true": "positive",
+      "pred": "negative",
+      "conf": 0.6205968260765076
+    },
+    {
+      "file": "mis_40_positive_as_negative.jpg",
+      "true": "positive",
+      "pred": "negative",
+      "conf": 0.9330525696277618
+    },
+    {
+      "file": "mis_41_positive_as_negative.jpg",
+      "true": "positive",
+      "pred": "negative",
+      "conf": 0.6952922940254211
+    },
+    {
+      "file": "mis_42_negative_as_positive.jpg",
+      "true": "negative",
+      "pred": "positive",
+      "conf": 0.5304602384567261
+    },
+    {
+      "file": "mis_43_negative_as_positive.jpg",
+      "true": "negative",
+      "pred": "positive",
+      "conf": 0.5515382289886475
+    },
+    {
+      "file": "mis_44_negative_as_positive.jpg",
+      "true": "negative",
+      "pred": "positive",
+      "conf": 0.5262646675109863
+    },
+    {
+      "file": "mis_45_negative_as_positive.jpg",
+      "true": "negative",
+      "pred": "positive",
+      "conf": 0.736757755279541
+    },
+    {
+      "file": "mis_46_negative_as_positive.jpg",
+      "true": "negative",
+      "pred": "positive",
+      "conf": 0.9876521825790405
+    },
+    {
+      "file": "mis_47_negative_as_positive.jpg",
+      "true": "negative",
+      "pred": "positive",
+      "conf": 0.8841443657875061
+    },
+    {
+      "file": "mis_48_negative_as_positive.jpg",
+      "true": "negative",
+      "pred": "positive",
+      "conf": 0.8508007526397705
+    },
+    {
+      "file": "mis_49_negative_as_positive.jpg",
+      "true": "negative",
+      "pred": "positive",
+      "conf": 0.5063560605049133
+    },
+    {
+      "file": "mis_50_negative_as_positive.jpg",
+      "true": "negative",
+      "pred": "positive",
+      "conf": 0.6398783326148987
+    },
+    {
+      "file": "mis_51_negative_as_positive.jpg",
+      "true": "negative",
+      "pred": "positive",
+      "conf": 0.9996753931045532
+    },
+    {
+      "file": "mis_52_negative_as_positive.jpg",
+      "true": "negative",
+      "pred": "positive",
+      "conf": 0.9418167471885681
+    },
+    {
+      "file": "mis_53_negative_as_positive.jpg",
+      "true": "negative",
+      "pred": "positive",
+      "conf": 0.9999328851699829
+    },
+    {
+      "file": "mis_54_negative_as_positive.jpg",
+      "true": "negative",
+      "pred": "positive",
+      "conf": 0.888286828994751
+    },
+    {
+      "file": "mis_55_negative_as_positive.jpg",
+      "true": "negative",
+      "pred": "positive",
+      "conf": 0.9582839608192444
+    }
+  ],
+  "n_misclassified": 56
+}

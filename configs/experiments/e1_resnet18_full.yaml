@@ -1,11 +1,11 @@
 # E1 — ResNet18 full run: longer schedule on the validated pipeline.
-# Single-variable comparison vs E0 (epochs 8 -> 16, patience tightened).
+# Single-variable comparison vs E0 (epochs 8 -> 12, patience 8 -> 5).
 model:
   backbone: resnet18
 training:
-  epochs: 16
+  epochs: 12
   lr: 0.0003
-  early_stopping_patience: 6
+  early_stopping_patience: 5
 augment:
   randaugment: false
   cutmix_mixup: false

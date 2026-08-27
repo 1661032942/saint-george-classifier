@@ -1,8 +1,11 @@
+data:
+  batch_size: 16  # memory-driven cap (8 GB RAM; batch 64 OOMs on CPU)
 # E2 — Backbone comparison: MobileNetV3-Large (same protocol as E1).
 model:
   backbone: mobilenet_v3_large
 training:
-  epochs: 40
+  epochs: 8
+  early_stopping_patience: 4
   lr: 0.0003
 augment:
   randaugment: false

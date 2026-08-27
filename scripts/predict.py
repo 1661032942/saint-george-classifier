@@ -23,7 +23,8 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--experiment", required=True,
                     help="experiment name (must match the trained checkpoint)")
-    ap.add_argument("--input", required=True, help="image file or folder")
+    ap.add_argument("--input", required=True, nargs="+",
+                    help="image file(s), folder(s), or a mix")
     ap.add_argument("--tta", action="store_true", help="test-time augmentation")
     ap.add_argument("--threshold", type=float, default=0.5)
     args = ap.parse_args()
@@ -39,12 +40,14 @@ def main():
     model = load_model(cfg, ckpt, device)
     transform = get_transforms(cfg, "val")
 
-    inp = Path(args.input)
-    if inp.is_dir():
-        files = [p for p in sorted(inp.rglob("*"))
-                 if p.suffix.lower() in (".jpg", ".jpeg", ".png", ".bmp", ".webp")]
-    else:
-        files = [inp]
+    files = []
+    for raw in args.input:
+        inp = Path(raw)
+        if inp.is_dir():
+            files += [p for p in sorted(inp.rglob("*"))
+                      if p.suffix.lower() in (".jpg", ".jpeg", ".png", ".bmp", ".webp")]
+        else:
+            files.append(inp)
 
     results = []
     for f in files:
