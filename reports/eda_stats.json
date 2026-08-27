@@ -1,0 +1,15 @@
+{
+  "n_scanned": 5700,
+  "n_pos": 2360,
+  "n_neg": 3340,
+  "n_valid": 5700,
+  "n_clusters": 4715,
+  "n_dup_clusters": 506,
+  "n_contaminated_clusters": 51,
+  "n_dropped_contaminated": 294,
+  "n_train": 4355,
+  "n_val": 526,
+  "n_test": 525,
+  "n_corrupt": 0,
+  "elapsed_sec": 112.6
+}

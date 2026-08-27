@@ -1,0 +1,51 @@
+# Base configuration for the Saint George binary classifier.
+# Every experiment config under configs/experiments/ overrides a subset of these.
+seed: 42
+
+paths:
+  pos_zip: "../georges.zip"          # relative to project root
+  neg_zip: "../non_georges.zip"
+  raw_dir: "data/raw"
+  splits_dir: "data/splits"
+  processed_dir: "data/processed"
+
+data:
+  image_size: 224
+  num_workers: 4
+  batch_size: 64
+  # near-duplicate detection (leakage prevention)
+  dhash_size: 8
+  dup_hamming: 10          # hamming distance <= this => near-duplicate (same cluster)
+  # dataset split fractions (grouped by near-duplicate cluster)
+  train_frac: 0.8
+  val_frac: 0.1
+
+model:
+  backbone: resnet18
+  num_classes: 2
+  pretrained: true
+
+training:
+  epochs: 40
+  lr: 0.0003
+  optimizer: adamw
+  weight_decay: 0.01
+  scheduler: cosine           # cosine | step
+  step_size: 10
+  gamma: 0.1
+  early_stopping_patience: 8
+  class_weights: true         # handle mild class imbalance
+  label_smoothing: 0.0
+  grad_clip: 1.0
+
+augment:
+  randaugment: false
+  cutmix_mixup: false
+  cutmix_prob: 0.5
+  mixup_alpha: 0.2
+
+eval:
+  tta: false
+  # misclassified samples to export for failure-mode analysis
+  export_misclassified: true
+  max_misclassified: 200

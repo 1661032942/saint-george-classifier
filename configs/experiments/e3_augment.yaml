@@ -1,0 +1,13 @@
+# E3 — Augmentation strengthening on ResNet18: RandAugment + CutMix/MixUp.
+# Single-variable comparison vs E1 (same schedule, stronger augment).
+model:
+  backbone: resnet18
+training:
+  epochs: 16
+  lr: 0.0003
+  early_stopping_patience: 6
+augment:
+  randaugment: true
+  cutmix_mixup: true
+  cutmix_prob: 0.5
+  mixup_alpha: 0.2

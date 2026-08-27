@@ -1,0 +1,13 @@
+# Saint George binary classifier — Python dependencies.
+# CPU build of PyTorch is used (the reference environment is CPU-only).
+# Pin exact versions with: pip freeze > requirements.txt
+torch>=2.5.0
+torchvision>=0.20.0
+pillow>=10.0.0
+numpy>=1.24.0
+pandas>=2.0.0
+scikit-learn>=1.3.0
+pyyaml>=6.0
+tqdm>=4.65.0
+matplotlib>=3.7.0
+seaborn>=0.12.0

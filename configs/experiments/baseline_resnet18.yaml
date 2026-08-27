@@ -1,0 +1,9 @@
+# E0 — Baseline: ResNet18, basic augment, short run to validate the pipeline.
+model:
+  backbone: resnet18
+training:
+  epochs: 8
+  lr: 0.0003
+augment:
+  randaugment: false
+  cutmix_mixup: false
