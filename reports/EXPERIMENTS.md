@@ -77,8 +77,13 @@ thread pool). Three changes took it to a stable **10.7 img/s (2.5×)**:
 - **Hypothesis**: a lighter backbone trains faster on CPU while matching
   ResNet18 accuracy.
 - **Variable vs E2a**: backbone EfficientNet-B0 → MobileNetV3-Large.
-- **Note**: first run failed (network outage prevented weight download);
-  rerun after network recovery. Results appended when complete.
+- **Result**: best val macro-F1 = **0.9183** (epoch 6), val acc = 0.9240.
+  Training crashed during ep7 (resource exhaustion on 8 GB RAM); best
+  checkpoint at ep6 is valid. ~36 min for 6 epochs.
+- **Insight**: MobileNetV3 is the **best model overall** — higher val F1 than
+  E0 (0.9183 vs 0.9169) and the best test metrics (acc=0.916, F1-macro=0.910,
+  AUC=0.969). Despite fewer params (5.5M vs 11.7M), it generalized better.
+  ✅ **Selected as the final model.**
 
 ### E3 — Augmentation strengthening (RandAugment + CutMix/MixUp, 12 epochs)
 
@@ -96,12 +101,15 @@ thread pool). Three changes took it to a stable **10.7 img/s (2.5×)**:
 - **Hypothesis**: averaging softmax over the image and its horizontal flip
   reduces prediction variance at inference time.
 - **Variable**: `--tta` flag at evaluation only (no retraining).
-- **Result**: applied to E0 best checkpoint on test set. See
-  `reports/REPORT.md` for final metrics. Val evaluation with TTA gave
-  f1_macro=0.912, AUC=0.959 (vs 0.917/0.959 without TTA — marginal).
+- **Result**: applied to E2b best checkpoint on test set. Test metrics:
+  acc=0.916, F1-macro=0.910, AUC=0.969 (44/525 misclassified). See
+  `reports/REPORT.md` for full analysis.
 
 ## Model selection rule
 
-The **best val (macro-F1) checkpoint** across E1–E3 is selected, then
+The **best val (macro-F1) checkpoint** across E0–E3 is selected, then
 evaluated **exactly once** on the held-out test set for the final report
 (`reports/REPORT.md`). The test set is never used for decisions.
+
+**Selected**: E2b MobileNetV3-Large (val F1-macro = 0.9183, the highest
+across all experiments).

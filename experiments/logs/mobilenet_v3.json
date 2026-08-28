@@ -1,0 +1,92 @@
+{
+  "exp_name": "mobilenet_v3",
+  "config": {
+    "model": {
+      "backbone": "mobilenet_v3_large"
+    },
+    "training": {
+      "epochs": 8,
+      "early_stopping_patience": 4
+    },
+    "data": {
+      "batch_size": 16
+    }
+  },
+  "best_val_f1_macro": 0.9183,
+  "total_sec": null,
+  "history": [
+    {
+      "epoch": 1,
+      "train_loss": 0.3673,
+      "val_f1": 0.7654,
+      "val_accuracy": 0.8403,
+      "val_f1_macro": 0.8222,
+      "val_precision": null,
+      "val_recall": null,
+      "val_roc_auc": null,
+      "lr": null,
+      "epoch_sec": null
+    },
+    {
+      "epoch": 2,
+      "train_loss": 0.2249,
+      "val_f1": 0.7831,
+      "val_accuracy": 0.8536,
+      "val_f1_macro": 0.8363,
+      "val_precision": null,
+      "val_recall": null,
+      "val_roc_auc": null,
+      "lr": null,
+      "epoch_sec": null
+    },
+    {
+      "epoch": 3,
+      "train_loss": 0.1439,
+      "val_f1": 0.8477,
+      "val_accuracy": 0.8859,
+      "val_f1_macro": 0.8783,
+      "val_precision": null,
+      "val_recall": null,
+      "val_roc_auc": null,
+      "lr": null,
+      "epoch_sec": null
+    },
+    {
+      "epoch": 4,
+      "train_loss": 0.0867,
+      "val_f1": 0.8821,
+      "val_accuracy": 0.9049,
+      "val_f1_macro": 0.9012,
+      "val_precision": null,
+      "val_recall": null,
+      "val_roc_auc": null,
+      "lr": null,
+      "epoch_sec": null
+    },
+    {
+      "epoch": 5,
+      "train_loss": 0.0582,
+      "val_f1": 0.8866,
+      "val_accuracy": 0.9163,
+      "val_f1_macro": 0.9102,
+      "val_precision": null,
+      "val_recall": null,
+      "val_roc_auc": null,
+      "lr": null,
+      "epoch_sec": null
+    },
+    {
+      "epoch": 6,
+      "train_loss": 0.0429,
+      "val_f1": 0.8969,
+      "val_accuracy": 0.924,
+      "val_f1_macro": 0.9183,
+      "val_precision": null,
+      "val_recall": null,
+      "val_roc_auc": null,
+      "lr": null,
+      "epoch_sec": null
+    }
+  ],
+  "note": "Training crashed during ep7 (resource exhaustion). Best checkpoint at ep6 saved. JSON reconstructed from log."
+}

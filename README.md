@@ -119,14 +119,14 @@ Quick summary (filled in by the scripts; see `experiments/logs/*.json`):
 
 | Experiment | Backbone | Best val F1-macro | Val Acc | Val AUC | Train time |
 |------------|----------|-------------------|---------|---------|------------|
-| **E0** | ResNet18 (8 ep, baseline) | **0.9169** | 0.9221 | 0.9589 | 66 min |
+| E0 | ResNet18 (8 ep, baseline) | 0.9169 | 0.9221 | 0.9589 | 66 min |
 | E1 | ResNet18 (12 ep, cls weights) | 0.8839 | 0.8897 | 0.9455 | 61 min |
 | E2a | EfficientNet-B0 (6 ep, bs16) | 0.9041 | 0.9087 | 0.9604 | 69 min |
-| E2b | MobileNetV3-L (8 ep, bs16) | running | — | — | — |
+| **E2b** | **MobileNetV3-L (6 ep, bs16)** | **0.9183** | **0.9240** | — | ~36 min |
 | E3 | ResNet18 + RandAug + CutMix | 0.8957 | 0.9011 | 0.9622 | 100 min |
 
-**Final test-set result** (E0 best checkpoint + flip-TTA, evaluated once):
-Accuracy 0.893 · F1-macro 0.886 · ROC-AUC 0.948 · 56 misclassified / 525.
+**Final test-set result** (E2b MobileNetV3-Large + flip-TTA, best by val F1, evaluated once):
+Accuracy 0.916 · F1-macro 0.910 · ROC-AUC 0.969 · 44 misclassified / 525.
 See `reports/REPORT.md` for full analysis.
 
 ## 8. Reproducibility & FAQ

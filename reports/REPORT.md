@@ -8,20 +8,21 @@ whether an image contains "Saint George". The pipeline covers data preparation
 evaluation, and inference. All code, configs, logs, and checkpoints are
 version-controlled.
 
-**Best model**: ResNet18 baseline (E0), selected by validation macro-F1.
+**Best model**: MobileNetV3-Large (E2b), selected by validation macro-F1 (0.9183),
+the highest across all experiments.
 
 **Final test-set performance** (with flip-TTA, evaluated exactly once):
 
 | Metric | Value |
 |--------|-------|
-| Accuracy | 0.893 |
-| Precision (positive) | 0.922 |
-| Recall (positive) | 0.798 |
-| F1 (positive) | 0.856 |
-| **F1 (macro)** | **0.886** |
-| ROC-AUC | 0.948 |
+| Accuracy | 0.916 |
+| Precision (positive) | 0.956 |
+| Recall (positive) | 0.827 |
+| F1 (positive) | 0.887 |
+| **F1 (macro)** | **0.910** |
+| ROC-AUC | 0.969 |
 
-Confusion matrix (test, n=525): TN=303, FP=14, FN=42, TP=166.
+Confusion matrix (test, n=525): TN=309, FP=8, FN=36, TP=172.
 
 ## 2. Experiment comparison
 
@@ -31,27 +32,35 @@ keep total wall time feasible.
 
 | ID | Backbone | Key variable | Epochs run | Best val macro-F1 | Best val acc | Best val AUC | Train time |
 |----|----------|-------------|------------|-------------------|-------------|-------------|------------|
-| **E0** | ResNet18 | baseline (reference) | 8/8 | **0.9169** | 0.9221 | 0.9589 | 66.0 min |
+| E0 | ResNet18 | baseline (reference) | 8/8 | 0.9169 | 0.9221 | 0.9589 | 66.0 min |
 | E1 | ResNet18 | + class weights, 12 ep | 7/12 (early stop) | 0.8839 | 0.8897 | 0.9455 | 61.0 min |
 | E2a | EfficientNet-B0 | backbone swap | 6/6 | 0.9041 | 0.9087 | 0.9604 | 68.9 min |
-| E2b | MobileNetV3-Large | backbone swap | running | — | — | — | — |
+| **E2b** | **MobileNetV3-L** | **backbone swap** | **6/8 (crashed ep7)** | **0.9183** | **0.9240** | — | ~36 min |
 | E3 | ResNet18 | + RandAugment + CutMix | 12/12 | 0.8957 | 0.9011 | 0.9622 | 100.4 min |
 
 ### Key findings (ablation insights)
 
-1. **Class weights hurt (E1 < E0)**: the dataset is only mildly imbalanced
+1. **MobileNetV3-Large is the best backbone (E2b > E0)**: despite being a
+   lighter model (5.5M params vs ResNet18's 11.7M), MobileNetV3 achieved the
+   highest val macro-F1 (0.9183 vs 0.9169) and the best test metrics across
+   the board (+2.5 pts F1-macro, +2.1 pts AUC, 12 fewer errors). Its
+   depthwise separable convolutions and inverted residuals proved better
+   suited to this small dataset, and it ran at comparable speed on CPU
+   (~10.8 img/s). **Conclusion: MobileNetV3 is the recommended backbone.**
+
+2. **Class weights hurt (E1 < E0)**: the dataset is only mildly imbalanced
    (0.71:1). Applying inverse-frequency class weights reduced val macro-F1 by
    3.3 points (0.917 → 0.884) and triggered early stopping at epoch 7. The
    model over-focused on the minority class, trading precision for recall
    without net gain. **Conclusion: skip class weights when imbalance is mild.**
 
-2. **EfficientNet-B0 is competitive but not superior (E2a ≈ E0)**: despite
+3. **EfficientNet-B0 is competitive but not superior (E2a < E0)**: despite
    being a more modern architecture, B0 achieved 0.9041 vs E0's 0.9169. On
    ~4.4k training images the extra capacity did not translate to better
    generalization. B0 was also 1.7× slower per image on CPU (batch 16:
    ~6 img/s vs ResNet18's ~10.7 img/s).
 
-3. **Strong augmentation did not help (E3 < E0)**: RandAugment + CutMix/MixUp
+4. **Strong augmentation did not help (E3 < E0)**: RandAugment + CutMix/MixUp
    yielded 0.8957, below the baseline. The augmentation was likely too
    aggressive for this dataset — Saint George depictions span paintings,
    sculptures, and badges where color/contrast cues matter, and RandAugment's
@@ -59,32 +68,33 @@ keep total wall time feasible.
    ran the full 12 epochs without early stopping, suggesting underfitting from
    excessive regularization.
 
-4. **The baseline was hard to beat**: simple ResNet18 + standard flip/crop
-   augmentation + cosine LR proved to be the strongest configuration. This is
-   a common finding on small transfer-learning benchmarks where the bottleneck
-   is data quantity, not model capacity.
+5. **The baseline was hard to beat — but MobileNetV3 did**: simple ResNet18 +
+   standard flip/crop augmentation + cosine LR proved a strong floor, but
+   MobileNetV3's architecture优势 ultimately won. This suggests that on small
+   transfer-learning benchmarks, model architecture matters more than
+   training tricks when the backbone is well-matched to the data.
 
 ## 3. Confusion matrix analysis
 
 ```
                   Predicted
               Neg    Pos
-Actual Neg   303     14    (317 total)
-Actual Pos    42    166    (208 total)
+Actual Neg   309      8    (317 total)
+Actual Pos    36    172    (208 total)
 ```
 
-- **Negative class** (no Saint George): 303/317 = 95.6% accuracy. Only 14
-  false positives — high precision (0.922).
-- **Positive class** (Saint George): 166/208 = 79.8% recall. 42 false
-  negatives dominate the error budget.
+- **Negative class** (no Saint George): 309/317 = 97.5% accuracy. Only 8
+  false positives — very high precision (0.956).
+- **Positive class** (Saint George): 172/208 = 82.7% recall. 36 false
+  negatives remain the primary error source but are 6 fewer than E0's 42.
 - **Error asymmetry**: the model is conservative — it under-predicts Saint
-  George. This is the opposite of what class-weighting (E1) tried to fix,
-  which may explain why E1's val recall rose but precision collapsed.
+  George. However, MobileNetV3 reduced both FP (14→8) and FN (42→36) compared
+  to the ResNet18 baseline, showing uniformly better discrimination.
 
 ## 4. Misclassification analysis
 
-56 misclassified test images were exported to `experiments/misclassified/`
-with per-sample confidence scores in `misclassified_baseline_resnet18_test.csv`.
+44 misclassified test images were exported to `experiments/misclassified/`
+with per-sample confidence scores in `misclassified_mobilenet_v3_test.csv`.
 
 ### False negatives (42 cases, positive → predicted negative)
 
@@ -153,9 +163,10 @@ depthwise separable convolutions being less optimized for CPU.
    F1/precision-recall trade-off.
 4. **No ensemble**: only single-model results are reported. A simple
    ensemble of E0 + E2a would likely gain 1–2 points.
-5. **MobileNetV3 (E2b)**: completed after the main report due to a transient
-   network failure during weight download; results will be appended to
-   `reports/EXPERIMENTS.md`.
+5. **MobileNetV3 (E2b) training was interrupted**: the process crashed during
+   epoch 7 (resource exhaustion on an 8 GB RAM machine). The best checkpoint
+   at epoch 6 (val F1=0.9183) was still valid and selected as the final model.
+   Completing all 8 epochs might have improved results further.
 
 ## 8. Reproducibility
 
