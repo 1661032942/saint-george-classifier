@@ -1,13 +1,23 @@
 # 推送到公开 GitHub 仓库 — 操作指引
 
+> **状态更新（2026-08-28）**：仓库 `1661032942/saint-george-classifier` 已通过
+> 连接器（方式 C）完成推送。远端包含全部代码 / 配置 / 文档 / 报告 / 实验
+> 日志与指标（55 个文本文件，以 6 个 API 提交形式写入，不保留本地提交历史）。
+> 以下大文件**未**随 API 推送（体积或二进制限制）：
+> `data/splits/{train,val,test}.csv`、`data/duplicates.txt`、
+> `experiments/misclassified/*.jpg|*.png`（约 9 MB，均可由
+> `scripts/prepare_data.py` / 评估脚本重新生成，不影响复现）。
+> 若需将这些文件或完整提交历史同步到远端，按下方方式 A 操作：
+> `git push --force-with-lease origin main`（本地历史将覆盖 API 提交）。
+
 本仓库已在本地初始化完成，随时可推送。本文件说明为什么需要一次手动操作，
 以及三种推送方式。
 
 ## 本地仓库现状
 
 - 分支：`main`
-- 提交数：3
-- 文件数：124（7.6 MB）
+- 提交数：5
+- 文件数：125（8.2 MB）
 - 工作区：干净，无未提交内容
 - 已排除（见 `.gitignore`）：`data/raw/`（原始图片 550 MB）、
   `experiments/checkpoints/*.pth`（模型权重 147 MB）
