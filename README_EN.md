@@ -1,6 +1,6 @@
 # Saint George Image Classifier (Bifu Test Task)
 
-**中文版本：[README.md](README.md)**
+**中文版本：[README.md](README.md) | Русская версия: [README_RU.md](README_RU.md)**
 
 A reproducible binary image-classification pipeline: deciding **whether an image
 contains Saint George** (positive class).
@@ -238,6 +238,7 @@ contaminating the estimate (the experiment report follows this principle).
 saint_george_classifier/
 ├── README.md                    # This project's main (Chinese) document
 ├── README_EN.md                 # English README (mirrors the Chinese version)
+├── README_RU.md                 # Russian README (mirrors the Chinese version)
 ├── docs/
 │   └── images/                  # Figures for the selection rationale (extracted
 │       │                        #   from the MobileNetV3 lecture slides)

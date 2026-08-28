@@ -1,6 +1,6 @@
 # Saint George 图像分类器（Bifu 测试任务）
 
-**English version: [README_EN.md](README_EN.md)**
+**English version: [README_EN.md](README_EN.md) | Русская версия: [README_RU.md](README_RU.md)**
 
 一个可复现的图像二分类流水线：判断一张图像**是否包含圣乔治**（正类）。
 目标（见 `测试描述.txt`）：用合法/道德范围内的任意方法，获得尽可能高质量的分类模型。
@@ -215,6 +215,7 @@ git add -A && git commit -m "feat: 修改说明" && git push
 saint_george_classifier/
 ├── README.md                    # 本文件（中文版主文档）
 ├── README_EN.md                 # 英文版 README（结构与此文件一致）
+├── README_RU.md                 # 俄文版 README（结构与此文件一致）
 ├── docs/
 │   └── images/                  # 选型论证配图（提取自 MobileNetV3 讲解课件）
 │       ├── fig1_pareto_v3_vs_v2.png   # 延迟-准确率 Pareto 对比图
