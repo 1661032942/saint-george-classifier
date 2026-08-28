@@ -1,5 +1,7 @@
 # Saint George 图像分类器（Bifu 测试任务）
 
+**English version: [README_EN.md](README_EN.md)**
+
 一个可复现的图像二分类流水线：判断一张图像**是否包含圣乔治**（正类）。
 目标（见 `测试描述.txt`）：用合法/道德范围内的任意方法，获得尽可能高质量的分类模型。
 
@@ -20,9 +22,13 @@
 
 ### 1.1 论文层面：MobileNetV3 的精度-效率优势
 
-以《Searching for MobileNetV3》（arXiv:1905.02244）及配套讲解材料中的图表为依据：
+以《Searching for MobileNetV3》（arXiv:1905.02244）及配套讲解材料中的图表为依据。
+本节图片提取自讲解课件，存放在 `docs/images/`。
 
 **图 1 · 延迟-准确率 Pareto 对比图（MobileNetV2 vs V3）**
+
+![图 1 · 延迟-准确率 Pareto 对比图（MobileNetV2 vs V3）](docs/images/fig1_pareto_v3_vs_v2.png)
+
 横坐标为 Google Pixel 1 上的推理延迟，纵坐标为 ImageNet Top-1 准确率。
 V3 的曲线整体位于 V2 左上方——**相同延迟下准确率更高，相同准确率下延迟更低**。
 论文给出量化结论：
@@ -31,24 +37,40 @@ V3 的曲线整体位于 V2 左上方——**相同延迟下准确率更高，�
 - MobileNetV3-**Small** 与同延迟 V2 相比：准确率高 **+6.6%**。
 
 **图 2 · Table 1 网络结构表（Large 版）**
+
+![图 2 · Table 1：MobileNetV3-Large 网络结构表](docs/images/fig2_table1_structure.png)
+
 逐层给出 `Input / Operator(bneck×k×k) / exp_size / #out / SE / NL / stride`，
 输入 224×224×3，骨干为 15 个倒残差块（bneck）+ 头尾卷积。关键列的含义：
 `SE` = 该块是否带通道注意力；`NL` = 激活函数（HS=h-swish，RE=ReLU）；
 `s` = DW 卷积步距。这正是本项目微调所用的结构。
 
 **图 3 · SE 模块结构图**
+
+![图 3a · MobileNetV3 倒残差结构（红框为内嵌的 SE 模块）](docs/images/fig3a_v3_bneck_se.png)
+
+![图 3b · SE 模块工作原理（通道注意力）](docs/images/fig3b_se_module.png)
+
 每个 channel 经全局平均池化 → FC（降到 1/4 通道数，ReLU）→ FC（还原通道数，
 h-sigmoid）→ 与原特征逐通道相乘。即：**给重要通道加权、弱通道降权**。
 对"圣乔治出现在画面局部（画作/雕像/徽章/彩窗）"的任务，通道注意力
 能自适应地突出判别性特征。
 
-**图 4 · 耗时层重设计（Original vs Efficient Last Stage）**
-首层卷积核 32→16（精度不变，省 2ms）；尾部 4 层卷积精简为"卷积→池化→两层卷积"
-（省 7ms，约占推理全程 11%）。
+**图 4 · h-sigmoid / h-swish 激活函数**
 
-三大创新总结：**① bneck 内嵌 SE 通道注意力；② h-swish/h-sigmoid 硬饱和激活**
-（逼近 swish 精度但无幂运算、对量化友好）；**③ NAS（MnasNet 强化学习多目标
-搜索 accuracy+latency）+ NetAdapt 逐层精调**。DW 卷积 + SE 的组合使 V3-Large
+![图 4 · sigmoid 与 h-sigmoid、swish 与 h-swish 曲线对比](docs/images/fig4_activations.png)
+
+h-sigmoid 与 h-swish 分别是 sigmoid / swish 的 ReLU6 硬近似：曲线形状接近，
+但公式简单得多——计算与求导都快，且对量化友好。
+
+**图 5 · 耗时层重设计（Original vs Efficient Last Stage）**
+
+首层卷积核 32→16（精度不变，省 2ms）；尾部 4 层卷积精简为"卷积→池化→两层卷积"
+（省 7ms，约占推理全程 11%）。〔数据引自论文 §5，讲解课件中无对应配图〕
+
+三大创新总结（对应上图 1–4）：**① bneck 内嵌 SE 通道注意力**；**② h-swish/h-sigmoid
+硬饱和激活**（逼近 swish 精度但无幂运算、对量化友好）；**③ NAS（MnasNet 强化学习
+多目标搜索 accuracy+latency）+ NetAdapt 逐层精调**。DW 卷积 + SE 的组合使 V3-Large
 在 CPU 上的计算量远小于同精度卷积网络——这是本项目 CPU-only 预算下的决定性优势。
 
 > 已知局限（材料第 3 节）：V3 针对 Pixel 硬件优化，在其他设备上未必达最佳
@@ -191,7 +213,15 @@ git add -A && git commit -m "feat: 修改说明" && git push
 
 ```
 saint_george_classifier/
-├── README.md                    # 本文件
+├── README.md                    # 本文件（中文版主文档）
+├── README_EN.md                 # 英文版 README（结构与此文件一致）
+├── docs/
+│   └── images/                  # 选型论证配图（提取自 MobileNetV3 讲解课件）
+│       ├── fig1_pareto_v3_vs_v2.png   # 延迟-准确率 Pareto 对比图
+│       ├── fig2_table1_structure.png  # Table 1：V3-Large 网络结构表
+│       ├── fig3a_v3_bneck_se.png      # V3 倒残差结构（含 SE 模块）
+│       ├── fig3b_se_module.png        # SE 模块工作原理
+│       └── fig4_activations.png       # h-sigmoid / h-swish 激活函数曲线
 ├── requirements.txt             # pip 依赖（锁定版本）
 ├── environment.yml              # conda 环境
 ├── Dockerfile                   # CPU 一键复现镜像
