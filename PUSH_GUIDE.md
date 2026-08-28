@@ -1,14 +1,11 @@
 # 推送到公开 GitHub 仓库 — 操作指引
 
-> **状态更新（2026-08-28）**：仓库 `1661032942/saint-george-classifier` 已通过
-> 连接器（方式 C）完成推送。远端包含全部代码 / 配置 / 文档 / 报告 / 实验
-> 日志与指标（55 个文本文件，以 6 个 API 提交形式写入，不保留本地提交历史）。
-> 以下大文件**未**随 API 推送（体积或二进制限制）：
-> `data/splits/{train,val,test}.csv`、`data/duplicates.txt`、
-> `experiments/misclassified/*.jpg|*.png`（约 9 MB，均可由
-> `scripts/prepare_data.py` / 评估脚本重新生成，不影响复现）。
-> 若需将这些文件或完整提交历史同步到远端，按下方方式 A 操作：
-> `git push --force-with-lease origin main`（本地历史将覆盖 API 提交）。
+> **状态更新（2026-08-28）**：已推送完成。仓库
+> `1661032942/saint-george-classifier` 通过 **git push**（本机系统代理
+> `127.0.0.1:7890` + 凭据管理器授权）获得了完整提交历史与全部跟踪文件
+> （125 个，含误分类样本图片与数据划分 CSV）。本地 `main` 已 rebase 到
+> 远端 Initial commit 之上（保留了创建仓库时选择的 LICENSE），远端与本地
+> 内容一致。下方关于连接器 403 的记录保留作排查存档。
 
 本仓库已在本地初始化完成，随时可推送。本文件说明为什么需要一次手动操作，
 以及三种推送方式。
@@ -16,7 +13,7 @@
 ## 本地仓库现状
 
 - 分支：`main`
-- 提交数：5
+- 提交数：6（含远端 Initial commit）
 - 文件数：125（8.2 MB）
 - 工作区：干净，无未提交内容
 - 已排除（见 `.gitignore`）：`data/raw/`（原始图片 550 MB）、
